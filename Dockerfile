@@ -32,14 +32,6 @@ RUN cd ~/gzweb \
     && hg up default \
     && ./deploy.sh -m
 
-
-# install pygazebo
-RUN git clone https://github.com/jpieper/pygazebo.git ~/pygazebo \
-    && cd ~/pygazebo \
-    && git checkout 3eaac84 \
-    && python setup.py install \
-    && cd ../
-
 # preparation to install anaconda
 RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 \
@@ -64,3 +56,11 @@ ENV PYTHONPATH /opt/conda/python2.7/site-packages:$PYTHONPATH
 # install xvfb
 RUN apt-get update && apt-get install -q -y xvfb \
     && rm -rf /var/lib/apt/lists/*
+
+
+# install pygazebo
+RUN git clone https://github.com/jpieper/pygazebo.git ~/pygazebo \
+    && cd ~/pygazebo \
+    && git checkout 3eaac84 \
+    && python setup.py install \
+    && cd ../
